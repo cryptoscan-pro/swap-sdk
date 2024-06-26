@@ -1,4 +1,4 @@
-# @cryptoscan/swap-sdk
+# @cryptoscan/swap-sdk.
 
 To install dependencies:
 
