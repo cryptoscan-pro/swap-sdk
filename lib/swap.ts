@@ -1,6 +1,6 @@
 import { Keypair } from "@solana/web3.js";
 import { getTransactionByTxn } from "./utils/getTransactionByTxn";
-import sendTransaction, { ISendSolanaTransactionParams } from "solana-send-transaction";
+import sendTransaction, { ISendSolanaTransactionParams } from "@cryptoscan/solana-send-transaction";
 
 export interface ISwapParams extends ISendSolanaTransactionParams {
 	wallet: Keypair;
