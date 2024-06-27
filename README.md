@@ -71,6 +71,39 @@ swap().then((tx) => console.log(tx));
 - `amount` - Amount of Coin `from` to buy
 - `connection` - Solana connection (Defaults: `Mainnet Solana Connection`)
 
+## Create transaction Docs
+
+- `payerAddress` - Wallet address to pay fee
+- `instructions` - Instructions for swap
+    - *Buy instruction*
+      - `type` - buy
+      - `service` - exchange name to buy (ex: pumpfun)
+      - `coinAddress` - Coin address to buy
+      - `walletAddress` - Wallet address
+      - `sol` - Amount of Coin `from` to buy
+      - `slippage` - Slippage
+    - *Sell instruction*
+      - `type` - sell
+      - `service` - exchange name to sell (ex: pumpfun)
+      - `coinAddress` - Coin address to sell
+      - `walletAddress` - Wallet address
+      - `sol` - (optional) Amount of Coin `from` to sell, if empty - all amount
+    - *Transfer instruction*
+      - `type` - transfer
+      - `fromAddress` - Coin address to pay
+      - `toAddress` - Coin address to buy
+      - `sol` - (Optional) Amount of Coin `from` to buy, if empty - all amount
+      - `coinAddress` - (Optional) address of coin to transfer
+    - *Create account instruction*
+      - `type` - createAccount
+      - `coinAddress` - Coin address to create
+      - `walletAddress` - Wallet address
+      - `payerAddress` - Wallet address to pay fee
+    - *Close account instruction*
+      - `type` - closeAccount
+      - `coinAddress` - Coin address to close
+      - `walletAddress` - Wallet address
+
 ## Transfer Example
 
 ```javascript
