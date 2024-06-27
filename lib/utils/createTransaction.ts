@@ -26,13 +26,11 @@ export const createTransaction = async ({ instructions, payerAddress }: CreateTr
 		body: JSON.stringify(body),
 	});
 
-	let _data = await res.text();
+	const data = await res.json();
 
-	if (typeof _data === 'string') {
-		return new Error(_data);
+	if (data.error) {
+		return new Error(data.error);
 	}
-
-	const data = JSON.parse(_data);
 
 	if (!data?.txn) {
 		return new Error('Failed to create swap transaction');

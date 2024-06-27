@@ -1,6 +1,7 @@
 import { VersionedTransaction } from "@solana/web3.js";
 import { getTransactionByTxn } from "./getTransactionByTxn";
 import { ENDPOINT } from "./constants";
+import { getIsSolAddress } from "./getIsSolAddress";
 
 export interface ICreateSwapTransactionParams {
 	walletAddress: string;
@@ -16,10 +17,10 @@ export interface ICreateTransactionResponse {
 	txn: string;
 }
 
-export const createSwapTransaction = async ({ 
-	walletAddress, 
-	from, 
-	to, 
+export const createSwapTransaction = async ({
+	walletAddress,
+	from,
+	to,
 	amount,
 	payerAddress,
 	slippage,
@@ -37,12 +38,14 @@ export const createSwapTransaction = async ({
 		return new Error('"to" is required');
 	}
 
-	if (typeof amount !== 'number') {
-		return new Error('"amount" is required');
-	}
+	if (!getIsSolAddress(to)) {
+		if (typeof amount !== 'number') {
+			return new Error('"amount" is required');
+		}
 
-	if (amount <= 0) {
-		return new Error('"amount" must be greater than 0');
+		if (amount <= 0) {
+			return new Error('"amount" must be greater than 0');
+		}
 	}
 
 	const params = new URLSearchParams({
@@ -60,6 +63,10 @@ export const createSwapTransaction = async ({
 
 	const res = await fetch(ENDPOINT + '/swap?' + params.toString());
 	const data = await res.json();
+
+	if (data.error) {
+		return new Error(data.err)
+	}
 
 	if (!data?.txn) {
 		return new Error('Failed to create swap transaction');
