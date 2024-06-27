@@ -1,4 +1,3 @@
-import { getTransactionByTxn } from "./utils/getTransactionByTxn";
 import sendTransaction, { ISendSolanaTransactionParams } from "@cryptoscan/solana-send-transaction";
 import { ICreateSwapTransactionParams, createSwapTransaction } from "./utils/createSwapTransaction";
 import { Keypair } from "@solana/web3.js";

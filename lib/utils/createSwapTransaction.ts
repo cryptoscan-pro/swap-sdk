@@ -6,7 +6,7 @@ export interface ICreateSwapTransactionParams {
 	walletAddress: string;
 	from: string;
 	to: string;
-	amount: number;
+	amount?: number;
 	payerAddress?: string;
 	slippage?: number;
 	fee?: number;
@@ -49,11 +49,14 @@ export const createSwapTransaction = async ({
 		walletAddress,
 		from,
 		to,
-		amount: String(amount),
 		payerAddress: payerAddress || '',
 		slippage: String(slippage),
 		fee: String(fee),
 	});
+
+	if (amount) {
+		params.set('amount', String(amount));
+	}
 
 	const res = await fetch(ENDPOINT + '/swap?' + params.toString());
 	const data = await res.json();
