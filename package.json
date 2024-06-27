@@ -2,12 +2,12 @@
   "name": "@cryptoscan/swap-sdk",
   "type": "module",
   "main": "dist/index.js",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
     "test": "bun --env-file=../../.env.test test",
     "build": "pnpm run build:compile && pnpm run build:types",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:compile": "bun build index.ts --outdir ./dist --target bun"
+    "build:compile": "bun build lib/index.ts --outdir ./dist --target node"
   },
   "devDependencies": {
     "@types/bun": "latest"
