@@ -197,6 +197,7 @@ buy().then((tx) => console.log(tx));
 ## Create Account & Buy Example
 
 You need to create associated account manually and then buy a coin
+If you using `swap` method, you dont need this
 
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
