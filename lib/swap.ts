@@ -1,21 +1,22 @@
-import { Keypair } from "@solana/web3.js";
 import { getTransactionByTxn } from "./utils/getTransactionByTxn";
 import sendTransaction, { ISendSolanaTransactionParams } from "@cryptoscan/solana-send-transaction";
+import { ICreateSwapTransactionParams, createSwapTransaction } from "./utils/createSwapTransaction";
+import { Keypair } from "@solana/web3.js";
 
-export interface ISwapParams extends ISendSolanaTransactionParams {
+export interface ISwapParams extends ISendSolanaTransactionParams, Omit<ICreateSwapTransactionParams, 'walletAddress'> {
 	wallet: Keypair;
-	from: string;
-	to: string;
-	amount: number;
 }
 
-interface ICreateTransactionResponse {
-	txn: string;
-}
-
-const ENDPOINT = process.env.SWAP_ENDPOINT || 'https://api.cryptoscan.pro/v1';
-
-export async function swap({ wallet, from, to, amount, ...sendOptions }: ISwapParams) {
+export async function swap({ 
+	wallet, 
+	from, 
+	to, 
+	amount, 
+	payerAddress, 
+	slippage, 
+	fee, 
+	...sendOptions 
+}: ISwapParams): Promise<string | Error> {
 	if (!wallet) {
 		return new Error('"wallet" is required');
 	}
@@ -24,32 +25,19 @@ export async function swap({ wallet, from, to, amount, ...sendOptions }: ISwapPa
 		return new Error('"wallet" must be a Keypair');
 	}
 
-	if (typeof from !== 'string') {
-		return new Error('"from" is required');
+	const transaction = await createSwapTransaction({
+		walletAddress: wallet.publicKey.toString(),
+		from,
+		to,
+		amount,
+		payerAddress,
+		slippage,
+		fee,
+	})
+
+	if (transaction instanceof Error) {
+		return transaction;
 	}
-
-	if (typeof to !== 'string') {
-		return new Error('"to" is required');
-	}
-
-	if (typeof amount !== 'number') {
-		return new Error('"amount" is required');
-	}
-
-	if (amount <= 0) {
-		return new Error('"amount" must be greater than 0');
-	}
-
-	const res = await fetch(ENDPOINT + '/swap');
-	const data: ICreateTransactionResponse = await res.json();
-
-	if (!('txn' in data)) {
-		throw new Error('"txn" not found in response');
-	}
-
-	const { txn } = data;
-
-	const transaction = getTransactionByTxn(txn);
 
 	transaction.sign([wallet]);
 
