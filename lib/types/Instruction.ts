@@ -34,9 +34,9 @@ export interface BudgetPriceInstruction extends BaseInstruction {
 
 export interface TransferInstruction extends BaseInstruction {
     type: 'transfer';
-    sol: number;
     fromAddress: string;
     toAddress: string;
+    sol?: number;
     coinAddress?: string;
 }
 
