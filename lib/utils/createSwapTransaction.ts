@@ -11,6 +11,7 @@ export interface ICreateSwapTransactionParams {
 	payerAddress?: string;
 	slippage?: number;
 	fee?: number;
+	priorityFee?: number;
 }
 
 export interface ICreateTransactionResponse {
@@ -25,6 +26,7 @@ export const createSwapTransaction = async ({
 	payerAddress,
 	slippage,
 	fee,
+	priorityFee,
 }: ICreateSwapTransactionParams): Promise<VersionedTransaction | Error> => {
 	if (!walletAddress) {
 		return new Error('"walletAddress" is required');
@@ -52,10 +54,17 @@ export const createSwapTransaction = async ({
 		walletAddress,
 		from,
 		to,
-		payerAddress: payerAddress || '',
 		slippage: String(slippage),
 		fee: String(fee),
 	});
+
+	if (payerAddress) {
+		params.set('payerAddress', payerAddress);
+	}
+
+	if (priorityFee) {
+		params.set('priorityFee', String(priorityFee));
+	}
 
 	if (amount) {
 		params.set('amount', String(amount));

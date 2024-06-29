@@ -73,6 +73,9 @@ swap().then((tx) => console.log(tx));
 - `to` - Coin address to buy
 - `amount` - Amount of Coin `from` to buy
 - `connection` - Solana connection (Defaults: `Mainnet Solana Connection`)
+- `fee` - Transaction fee (Optional)
+- `priorityFee` - Priority fee (Blox-route validator) (Default: 0.0001)
+- `slippage` - Slippage (Default: 1)
 
 ## Create transaction Docs
 
@@ -106,6 +109,45 @@ swap().then((tx) => console.log(tx));
       - `type` - closeAccount
       - `coinAddress` - Coin address to close
       - `walletAddress` - Wallet address
+    - *Budget Limit* - limit of solana fee in one transaction
+      - `sol` - amount of SOL (Optional)
+    - *Budget Price* - price of solana fee per compute lamports
+      - `sol` - amount of SOL
+    - *BloxRoute instruction* - to make transations faster
+      - `payerAddress` - wallet to pay fee
+      - `sol` - amount of SOL to pay (Default: 0.0001)
+
+## Faster Transactions Example (Bloxroute validator)
+
+```javascript
+import { Keypair, Connection } from "@solana/web3.js";
+import { createSwapTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+
+const secretKeyStr = 'YOUR_SECRET_KEY';
+const wallet = Keypair.fromSecretKey(bs58.decode(secretKeyStr));
+const from = 'sol';
+const to = 'HJAoYbnsf16Z8ftk3SsuShKLQQgzmxAPu41RTpjjpump';
+const amount = 0.05;
+const fee = 0.00001;
+const priorityFee = 0.0001;
+
+async function swap() {
+  const transaction = await createSwapTransaction({
+    wallet,
+    from,
+    to,
+    amount,
+    fee,
+    priorityFee,
+  });
+
+  transaction.sign([wallet]);
+
+  return sendTransaction(transaction)
+}
+
+swap().then((tx) => console.log(tx));
+```
 
 ## Transfer Example
 
@@ -127,6 +169,37 @@ async function transfer() {
     payerAddress: wallet.publicKey.toString(),
     instructions: [
       { type: 'transfer', fromAddress, toAddress, sol },
+    ]
+  });
+
+  transaction.sign([wallet]);
+
+  return sendTransaction(transaction)
+}
+
+transfer().then((tx) => console.log(tx));
+```
+## Transfer Coins Example
+
+```javascript
+import { getWallet } from '@cryptoscan/solana-wallet-sdk';
+import { Connection } from "@solana/web3.js";
+import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+
+const rpcUrl = 'https://api.mainnet-beta.solana.com';
+const secretKeyStr = 'YOUR_SECRET_KEY';
+const wallet = getWallet(secretKeyStr);
+const coinAddress = 'HJAoYbnsf16Z8ftk3SsuShKLQQgzmxAPu41RTpjjpump';
+const from = wallet.publicKey.toString();
+const to = '4YH9p2SFQwZmAL2CCpfQRCvnx8qZ5K6PHdHY1ED1a53m';
+const sol = 0.05;
+
+async function transfer() {
+  const connection = new Connection(rpcUrl);
+  const transaction = await createTransaction({
+    payerAddress: wallet.publicKey.toString(),
+    instructions: [
+      { type: 'transfer', fromAddress, toAddress, sol, coinAddress },
     ]
   });
 
@@ -333,14 +406,14 @@ buy().then((tx) => console.log(tx));
 <details>
   <summary>Is it secure to use sdk with private key?</summary>
 
-  You don't share private key through api request.
+  Yes. You don't share private key through api request.
   You sign transaction with private key locally only.
   Library is based on [@cryptoscan/swap-sdk](https://docs.cryptoscan.pro/swap/sdk)
 </details>
 <details>
   <summary>Is it free?</summary>
 
-  We charge a 0.5% fee on each successful transaction. 
+  We charge a 0.5% fee on each successful transaction instruction. 
   If you want to decrease fee - please contact us in [discord](https://discord.gg/ktewAs67fE) or [telegram](https://t.me/nomoney_trader)
   We can increase fee down to 0.1% if you will contribute us.
 </details>
