@@ -14,6 +14,7 @@ export async function swap({
 	payerAddress, 
 	slippage, 
 	fee, 
+	priorityFee,
 	...sendOptions 
 }: ISwapParams): Promise<string | Error> {
 	if (!wallet) {
@@ -32,6 +33,7 @@ export async function swap({
 		payerAddress,
 		slippage,
 		fee,
+		priorityFee,
 	})
 
 	if (transaction instanceof Error) {
