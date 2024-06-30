@@ -54,8 +54,6 @@ export const createSwapTransaction = async ({
 		walletAddress,
 		from,
 		to,
-		slippage: String(slippage),
-		fee: String(fee),
 	});
 
 	if (payerAddress) {
@@ -64,6 +62,14 @@ export const createSwapTransaction = async ({
 
 	if (priorityFee) {
 		params.set('priorityFee', String(priorityFee));
+	}
+
+	if (slippage) {
+		params.set('priorityFee', String(slippage));
+	}
+
+	if (fee) {
+		params.set('fee', String(fee));
 	}
 
 	if (amount) {
