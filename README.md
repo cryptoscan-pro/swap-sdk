@@ -58,6 +58,10 @@ async function swap() {
     connection,
   });
 
+  if (transaction instanceof Error) {
+    return transaction;
+  }
+
   transaction.sign([wallet]);
 
   return sendTransaction(transaction) // The fast Cryptoscan method
@@ -143,6 +147,10 @@ async function swap() {
     priorityFee,
   });
 
+  if (transaction instanceof Error) {
+    return transaction;
+  }
+
   transaction.sign([wallet]);
 
   return sendTransaction(transaction)
@@ -175,6 +183,10 @@ async function transfer() {
     ]
   });
 
+  if (transaction instanceof Error) {
+    return transaction;
+  }
+
   transaction.sign([wallet]);
 
   return sendTransaction(transaction)
@@ -206,6 +218,10 @@ async function transfer() {
       { type: 'transfer', fromAddress, toAddress, sol, coinAddress },
     ]
   });
+
+  if (transaction instanceof Error) {
+    return transaction;
+  }
 
   transaction.sign([wallet]);
 
@@ -252,6 +268,10 @@ async function sell() {
       },
     ]
   });
+
+  if (transaction instanceof Error) {
+    return transaction;
+  }
 
   transaction.sign([wallet]);
 
@@ -301,6 +321,10 @@ async function buy() {
     ]
   });
 
+  if (transaction instanceof Error) {
+    return transaction;
+  }
+
   transaction.sign([wallet, buyerWallet]);
 
   return sendTransaction(transaction)
@@ -349,6 +373,10 @@ async function buy() {
       },
     ]
   });
+
+  if (transaction instanceof Error) {
+    return transaction;
+  }
 
   transaction.sign([wallet, buyerWallet]);
 
@@ -400,6 +428,10 @@ async function buy() {
       },
     ]
   });
+
+  if (transaction instanceof Error) {
+    return transaction;
+  }
 
   transaction.sign([wallet]);
 
