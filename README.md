@@ -38,7 +38,8 @@ Primary Usage
 
 ```javascript
 import { Keypair, Connection } from "@solana/web3.js";
-import { createSwapTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createSwapTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const secretKeyStr = 'YOUR_SECRET_KEY';
@@ -121,7 +122,8 @@ swap().then((tx) => console.log(tx));
 
 ```javascript
 import { Keypair, Connection } from "@solana/web3.js";
-import { createSwapTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createSwapTransaction } from '@cryptoscan/swap-sdk';
 
 const secretKeyStr = 'YOUR_SECRET_KEY';
 const wallet = Keypair.fromSecretKey(bs58.decode(secretKeyStr));
@@ -153,8 +155,9 @@ swap().then((tx) => console.log(tx));
 
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const secretKeyStr = 'YOUR_SECRET_KEY';
@@ -184,7 +187,8 @@ transfer().then((tx) => console.log(tx));
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const secretKeyStr = 'YOUR_SECRET_KEY';
@@ -218,7 +222,8 @@ Sell all tokens balance by some wallets
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const secretKeyStr = 'YOUR_SECRET_KEY';
@@ -263,7 +268,8 @@ Transfer solana and buy in one transaction
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const wallet = getWallet('YOUR_SECRET_KEY');
@@ -311,7 +317,8 @@ If you using `swap` method, you dont need this
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const wallet = getWallet('YOUR_SECRET_KEY');
@@ -361,7 +368,8 @@ Make transactions with fixed fee
 ```javascript
 import { getWallet } from '@cryptoscan/solana-wallet-sdk';
 import { Connection } from "@solana/web3.js";
-import { createTransaction, sendTransaction } from '@cryptoscan/swap-sdk';
+import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '@cryptoscan/swap-sdk';
 
 const rpcUrl = 'https://api.mainnet-beta.solana.com';
 const wallet = getWallet('YOUR_SECRET_KEY');
