@@ -1,6 +1,6 @@
 import { VersionedTransaction, Transaction } from "@solana/web3.js";
-import { NetworkName } from "../types/NetworkName";
 import solanaSendTransaction from '@cryptoscan/solana-send-transaction';
+import { NetworkName } from "../types/NetworkName.js";
 
 interface BaseParams {
 	network: NetworkName;

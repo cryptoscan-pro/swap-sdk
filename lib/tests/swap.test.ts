@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
-import { createTransaction } from '../utils/createTransaction';
-import { Connection } from '@solana/web3.js';
+import { Connection, VersionedTransaction } from '@solana/web3.js';
+import { createTransaction } from '../utils/createTransaction.js';
 
 describe('swap', () => {
 	test('should simulate a solana swap', async () => {

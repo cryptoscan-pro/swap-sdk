@@ -1,8 +1,8 @@
 import { describe, test, expect } from 'vitest';
-import { createTransaction } from '../utils/createTransaction';
 import { Connection, Keypair } from '@solana/web3.js';
 import bs58 from 'bs58';
 import sendTransaction from '@cryptoscan/solana-send-transaction';
+import { createTransaction } from '../utils/createTransaction.js';
 
 describe('swap', () => {
 	test('should send transaction with private rpc', async () => {

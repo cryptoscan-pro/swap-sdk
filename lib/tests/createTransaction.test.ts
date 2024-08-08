@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { createTransaction } from '../utils/createTransaction';
+import { createTransaction } from '../utils/createTransaction.js';
 
 describe('createTransaction', () => {
 	test('should create a solana transfer transaction txn', async () => {
