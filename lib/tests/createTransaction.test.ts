@@ -1,21 +1,55 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, test, expect } from 'vitest';
 import { createTransaction } from '../utils/createTransaction';
 
 describe('createTransaction', () => {
-  test('should create transaction', async () => {
-    const transaction = await createTransaction({
-      payerAddress: 'DggKFxSoev2xJfMeb1CvgXZ8BsDUXb54bhFtaVMUT9nU',
-      instructions: [
-        { 
-          type: 'transfer',
-          fromAddress: 'DggKFxSoev2xJfMeb1CvgXZ8BsDUXb54bhFtaVMUT9nU',
-          toAddress: 'Hvt7wmdSEyDfptyojo4iiS3sroTPKAeKMAc4PNzXg7Ds',
-          sol: 0.01,
-        }
-      ]
-    });
+	test('should create a solana transfer transaction txn', async () => {
+		const transaction = await createTransaction({
+			type: 'transfer',
+      network: "solana",
+			coinAddress: 'So11111111111111111111111111111111111111112',
+      from: "Hvt7wmdSEyDfptyojo4iiS3sroTPKAeKMAc4PNzXg7Ds",
+      to: "DggKFxSoev2xJfMeb1CvgXZ8BsDUXb54bhFtaVMUT9nU",
+      amount: 1,
+		})
 
-    console.log(transaction)
-    expect(transaction instanceof Error).toBe(false);
-  })
+		expect(transaction).toBeDefined();
+	}, 10_000)
+
+	test('should create a solana transfer transaction txn', async () => {
+		const transaction = await createTransaction({
+			type: 'transfer',
+      network: "solana",
+			coinAddress: 'So11111111111111111111111111111111111111112',
+      from: "Hvt7wmdSEyDfptyojo4iiS3sroTPKAeKMAc4PNzXg7Ds",
+      to: "DggKFxSoev2xJfMeb1CvgXZ8BsDUXb54bhFtaVMUT9nU",
+      amount: 1,
+		})
+
+		expect(transaction).toBeDefined();
+	}, 10_000)
+
+	test('should create a solana swap transaction txn', async () => {
+		const transaction = await createTransaction({
+      network: "solana",
+      from: "So11111111111111111111111111111111111111112",
+      to: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      amount: 1,
+			walletAddress: '11111111111111111111111111111111',
+		})
+
+		expect(transaction).toBeDefined();
+	}, 10_000)
+
+	test('should create a pumpfun transaction txn', async () => {
+		const transaction = await createTransaction({
+      network: "solana",
+			service: "pumpfun",
+      from: "So11111111111111111111111111111111111111112",
+      to: "HJAoYbnsf16Z8ftk3SsuShKLQQgzmxAPu41RTpjjpump",
+      amount: 1,
+			walletAddress: '11111111111111111111111111111111',
+		})
+
+		expect(transaction).toBeDefined();
+	}, 10_000)
 })

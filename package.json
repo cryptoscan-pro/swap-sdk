@@ -1,22 +1,31 @@
 {
   "name": "@cryptoscan/swap-sdk",
   "type": "module",
-  "main": "dist/index.js",
-  "version": "0.0.11",
+  "version": "0.1.0",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
-    "test": "bun --env-file=../../.env.test test",
-    "build": "pnpm run build:compile && pnpm run build:types",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:compile": "bun build lib/index.ts --outdir ./dist --target node"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "test": "vitest",
+    "build:watch": "tsc -w -p tsconfig.esm.json",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "release": "semantic-release"
   },
   "dependencies": {
-    "@solana/web3.js": "^1.93.2",
-    "@cryptoscan/solana-send-transaction": "*"
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "@solana/web3.js": "^1.93.2"
+  },
+  "devDependencies": {
+    "@cryptoscan/solana-send-transaction": "workspace:latest",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.0.0"
   }
 }
