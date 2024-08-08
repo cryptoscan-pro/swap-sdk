@@ -23,7 +23,7 @@
     "@solana/web3.js": "^1.93.2"
   },
   "devDependencies": {
-    "@cryptoscan/solana-send-transaction": "workspace:latest",
+    "@cryptoscan/solana-send-transaction": "latest",
     "bs58": "^5.0.0",
     "dotenv": "^16.4.5",
     "typescript": "^5.0.0"
