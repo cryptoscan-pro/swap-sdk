@@ -23,7 +23,7 @@ jobs:
       - name: Clone .github repository
         run: |
           rm -rf .github
-          git clone "git@github.com:cryptoscan-pro/app-web.git"
+          git clone "git@github.com:cryptoscan-pro/app-web.git" .github
 
       - name: Copy README.md to destination
         run: |
