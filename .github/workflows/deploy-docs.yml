@@ -19,8 +19,8 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.email "support@cryptoscan.pro"
-          git config --global user.name "Cryptoscan Pro"
+          git config --global user.email "62588539+javeoff@users.noreply.github.com"
+          git config --global user.name "Daniil Jave"
 
       - name: Clone .github repository
         run: |
