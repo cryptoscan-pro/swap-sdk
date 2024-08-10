@@ -13,7 +13,6 @@ interface SolanaSwapParams extends SwapBaseParams {
 
 export type SwapParams = SolanaSwapParams;
 
-
 export const swap = async ({ wallet, ...params }: SwapParams): Promise<string> => {
 	switch (params.network) {
 		case 'solana': {
