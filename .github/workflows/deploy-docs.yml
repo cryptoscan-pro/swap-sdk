@@ -1,0 +1,41 @@
+name: Update Swap SDK Docs
+
+on:
+  push:
+    paths:
+      - README.md
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Clone .github repository
+        run: |
+          rm -rf .github
+          git clone "git@github.com:cryptoscan-pro/app-web.git"
+
+      - name: Copy README.md to destination
+        run: |
+          cp README.md .github/docs/swap-sdk.md
+
+      - name: Commit and push changes
+        run: |
+          cd .github
+          git add .
+          git commit -m "feat: update @cryptoscan/swap-sdk docs"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up
+        run: |
+          cd ..
+          rm -rf .github
+
+      - name: Success message
+        run: echo "README.md copied into .github/docs/swap-sdk.md"
+
