@@ -25,6 +25,7 @@ const from = 'sol';
 const to = 'HJAoYbnsf16Z8ftk3SsuShKLQQgzmxAPu41RTpjjpump';
 const amount = 0.05;
 
+
 swap({
   wallet,
   from,
