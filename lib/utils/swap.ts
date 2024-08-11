@@ -11,7 +11,7 @@ type SolanaSwapParams<P = SwapBaseParams> = P & {
 	wallet: Keypair;
 }
 
-export type SwapParams<Params> = SolanaSwapParams<Params>;
+export type SwapParams<Params = SwapBaseParams> = SolanaSwapParams<Params>;
 
 export const swap = async ({ wallet, ...params }: SwapParams<SwapBaseParams>): Promise<string> => {
 	switch (params.network) {
