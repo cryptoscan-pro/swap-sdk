@@ -17,13 +17,13 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "@semantic-release/commit-analyzer": "^13.0.0",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/release-notes-generator": "^14.0.1",
-    "@solana/web3.js": "^1.93.2",
+    "@solana/web3.js": "1.93.1",
     "@cryptoscan/solana-send-transaction": "latest"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
     "bs58": "^5.0.0",
     "dotenv": "^16.4.5",
     "typescript": "^5.0.0",
