@@ -1,19 +1,19 @@
 import { Connection, Keypair } from "@solana/web3.js";
-import { createTransaction, CreateTransactionParams } from "./createTransaction.js";
+import { createTransaction, type CreateTransactionParams } from "./createTransaction.js";
 import sendTransaction from "@cryptoscan/solana-send-transaction";
 
 interface SwapBaseParams extends Omit<CreateTransactionParams, 'walletAddress'> {
 	wallet: unknown;
 }
 
-interface SolanaSwapParams extends SwapBaseParams {
+type SolanaSwapParams<P = SwapBaseParams> = P & {
 	network: 'solana';
 	wallet: Keypair;
 }
 
-export type SwapParams = SolanaSwapParams;
+export type SwapParams<Params> = SolanaSwapParams<Params>;
 
-export const swap = async ({ wallet, ...params }: SwapParams): Promise<string> => {
+export const swap = async ({ wallet, ...params }: SwapParams<SwapBaseParams>): Promise<string> => {
 	switch (params.network) {
 		case 'solana': {
 			const walletAddress = wallet.publicKey.toString();

@@ -13,7 +13,7 @@ interface SolanaParams extends BaseParams {
 	transaction: VersionedTransaction | Transaction;
 }
 
-export type RunTransactionParams = SolanaParams
+export type RunTransactionParams = SolanaParams;
 
 export const runTransaction = (params: RunTransactionParams) => {
 	switch (params.network) {

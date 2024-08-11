@@ -8,15 +8,16 @@ interface BaseParams {
 	from: string;
 	to: string;
 	amount: number;
+	fee?: number;
 }
 
-interface CreateSwapParams extends BaseParams {
+export interface CreateSwapParams extends BaseParams {
 	type?: 'swap';
 	service?: string;
 	walletAddress: string;
 }
 
-interface CreateTransferParams extends BaseParams {
+export interface CreateTransferParams extends BaseParams {
 	type: 'transfer';
 	coinAddress: string;
 }
