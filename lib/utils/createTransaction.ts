@@ -15,6 +15,7 @@ export interface CreateSwapParams extends BaseParams {
 	type?: 'swap';
 	service?: string;
 	walletAddress: string;
+	slippage?: number;
 }
 
 export interface CreateTransferParams extends BaseParams {
