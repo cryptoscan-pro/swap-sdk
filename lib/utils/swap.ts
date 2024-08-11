@@ -8,12 +8,13 @@ interface SwapBaseParams extends Omit<CreateTransactionParams, 'walletAddress'> 
 
 type SolanaSwapParams<P = SwapBaseParams> = P & {
 	network: 'solana';
+	connection?: Connection;
 	wallet: Keypair;
 }
 
 export type SwapParams<Params = SwapBaseParams> = SolanaSwapParams<Params>;
 
-export const swap = async ({ wallet, ...params }: SwapParams<SwapBaseParams>): Promise<string> => {
+export const swap = async ({ wallet, connection: paramsConnection, ...params }: SwapParams<SwapBaseParams>): Promise<string> => {
 	switch (params.network) {
 		case 'solana': {
 			const walletAddress = wallet.publicKey.toString();
@@ -22,7 +23,7 @@ export const swap = async ({ wallet, ...params }: SwapParams<SwapBaseParams>): P
 				walletAddress,
 			}
 			const transaction = await createTransaction(newParams as CreateTransactionParams);
-			const connection = new Connection(process.env.CONNECTION_URL!, {
+			const connection = paramsConnection || new Connection(process.env.CONNECTION_URL!, {
 				wsEndpoint: process.env.WS_CONNECTION_URL!,
 			});
 			const txid = await sendTransaction(transaction, {
