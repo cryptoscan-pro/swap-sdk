@@ -26,6 +26,7 @@ export const swap = async ({ wallet, connection: paramsConnection, ...params }: 
 			const connection = paramsConnection || new Connection(process.env.CONNECTION_URL!, {
 				wsEndpoint: process.env.WS_CONNECTION_URL!,
 			});
+			transaction.sign([wallet]);
 			const txid = await sendTransaction(transaction, {
 				connection,
 				checkBlockHeight: false,
