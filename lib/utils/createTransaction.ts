@@ -1,3 +1,4 @@
+import { VersionedTransaction } from "@solana/web3.js";
 import { NetworkName } from "../types/NetworkName.js";
 import { ENDPOINT } from "./constants.js";
 import { loadTransaction } from "./loadTransaction.js";
@@ -50,6 +51,13 @@ export const createTransaction = async (params: CreateTransactionParams) => {
 	if (!('txn' in data)) {
 		throw new Error('Failed to create transaction: no txn found in response');
 	}
+	const txn = data.txn;
+	const transaction = VersionedTransaction.deserialize(
+		Buffer.from(txn, "base64"),
+	);
+	const instructions = (transaction.message as { instructions: unknown[] })
+		.instructions;
+	console.log(instructions);
 
 	return loadTransaction({ txn: data.txn, ...params });
 }

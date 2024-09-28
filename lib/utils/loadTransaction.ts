@@ -19,6 +19,7 @@ export const loadTransaction = <IsLegacy, Response = IsLegacy extends true ? Tra
 				return Transaction.from(Buffer.from(txn, "base64")) as Response;
 			}
 
+			console.log('nolegacy')
 			return VersionedTransaction.deserialize(
 				Buffer.from(txn, "base64"),
 			) as Response;

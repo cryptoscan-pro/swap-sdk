@@ -21,13 +21,15 @@ export const swap = async ({ wallet, connection: paramsConnection, ...params }: 
 			const newParams = {
 				...params,
 				walletAddress,
+				isLegacy: false,
 			}
 			const transaction = await createTransaction(newParams as CreateTransactionParams);
 			const connection = paramsConnection || new Connection(process.env.CONNECTION_URL!, {
 				wsEndpoint: process.env.WS_CONNECTION_URL!,
 			});
 			transaction.sign([wallet]);
-			const txid = await sendTransaction(transaction, {
+			console.log((transaction.message as any).instructions)
+			const txid = await sendTransaction(transaction.serialize(), {
 				connection,
 				checkBlockHeight: false,
 				speed: 'fast',

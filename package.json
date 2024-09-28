@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@solana/web3.js": "1.93.1",
-    "@cryptoscan/solana-send-transaction": "latest"
+    "@cryptoscan/solana-send-transaction": "workspace:latest"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.0",
