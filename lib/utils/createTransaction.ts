@@ -40,9 +40,11 @@ function filterAndConvert(obj: { [key: string]: any }): { [key: string]: string 
 
 export const createTransaction = async (params: CreateTransactionParams) => {
 	const searchParams = new URLSearchParams(filterAndConvert(params));
+	console.log(searchParams.toString())
 	const response = await fetch(`${ENDPOINT}/createTransaction?${searchParams.toString()}`);
 
 	if (!response.ok) {
+		console.log(response)
 		throw new Error(`Failed to create transaction: ${response.statusText}`);
 	}
 
@@ -57,7 +59,6 @@ export const createTransaction = async (params: CreateTransactionParams) => {
 	);
 	const instructions = (transaction.message as { instructions: unknown[] })
 		.instructions;
-	console.log(instructions);
 
 	return loadTransaction({ txn: data.txn, ...params });
 }
