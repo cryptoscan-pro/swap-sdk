@@ -15,7 +15,9 @@ describe('createTransaction', () => {
 		expect(transaction).toBeDefined();
 	}, 10_000)
 
+
 	test('should create a solana transfer transaction txn', async () => {
+		await new Promise(resolve => setTimeout(resolve, 2_000));
 		const transaction = await createTransaction({
 			type: 'transfer',
       network: "solana",
@@ -26,9 +28,11 @@ describe('createTransaction', () => {
 		})
 
 		expect(transaction).toBeDefined();
-	}, 10_000)
+	}, 12_000)
+
 
 	test('should create a solana swap transaction txn', async () => {
+		await new Promise(resolve => setTimeout(resolve, 4_000));
 		const transaction = await createTransaction({
       network: "solana",
       from: "So11111111111111111111111111111111111111112",
@@ -38,9 +42,10 @@ describe('createTransaction', () => {
 		})
 
 		expect(transaction).toBeDefined();
-	}, 10_000)
+	}, 14_000)
 
 	test('should create a pumpfun transaction txn', async () => {
+		await new Promise(resolve => setTimeout(resolve, 6_000));
 		const transaction = await createTransaction({
       network: "solana",
 			service: "pumpfun",
@@ -51,5 +56,5 @@ describe('createTransaction', () => {
 		})
 
 		expect(transaction).toBeDefined();
-	}, 10_000)
+	}, 16_000)
 })
