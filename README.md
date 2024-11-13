@@ -4,7 +4,7 @@ The fastest way to swap any tokens on any networks & dexes
 
 [[GitHub]](https://github.com/cryptoscan-pro/swap-sdk)
 [[Our website]](https://cryptoscan.pro/)
-[[Docs]](https://cryptoscan.pro/docs/swap-sdk)
+[[Docs]](https://docs.cryptoscan.pro)
 [[Discord]](https://discord.gg/ktewAs67fE)
 
 ## Supported networks
