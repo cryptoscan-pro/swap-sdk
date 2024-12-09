@@ -74,8 +74,7 @@ async function swap() {
 
   transaction.sign([wallet]);
 
-  return sendTransaction(transaction, { connection }) // The fast Cryptoscan method
-  // return connection.sendTransaction(transaction); // Solana SDK Method
+  return sendTransaction(transaction, { connection })
 }
 
 swap().then((tx) => console.log(tx));
