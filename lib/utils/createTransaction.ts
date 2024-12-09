@@ -38,20 +38,54 @@ function filterAndConvert(obj: { [key: string]: any }): { [key: string]: string 
 }
 
 export const createTransaction = async (params: CreateTransactionParams) => {
-	const searchParams = new URLSearchParams(filterAndConvert(params));
-	console.log(searchParams.toString())
-	const response = await fetch(`${ENDPOINT}/createTransaction?${searchParams.toString()}`);
+    if (params.type !== 'swap' && params.type !== 'transfer') {
+        throw new Error('Invalid transaction type');
+    }
 
-	if (!response.ok) {
-		console.log(response)
-		throw new Error(`Failed to create transaction: ${response.statusText}`);
-	}
+    if (!params.network) {
+        throw new Error('Network is required');
+    }
+
+    if (!params.from) {
+        throw new Error('From address is required');
+    }
+
+    if (!params.to) {
+        throw new Error('To address is required');
+    }
+
+    if (typeof params.amount !== 'number') {
+        throw new Error('Amount must be a number');
+    }
+
+    if (params.fee && typeof params.fee !== 'number') {
+        throw new Error('Fee must be a number');
+    }
+
+    if (params.type === 'swap') {
+        if (!params.service) {
+            throw new Error('Service is required for swap');
+        }
+
+        if (!params.walletAddress) {
+            throw new Error('Wallet address is required for swap');
+        }
+
+        if (params.slippage && typeof params.slippage !== 'number') {
+            throw new Error('Slippage must be a number');
+        }
+    } else if (params.type === 'transfer' && !params.coinAddress) {
+                 throw new Error('Coin address is required for transfer');
+           }
+
+    const searchParams = new URLSearchParams(filterAndConvert(params));
+    const response = await fetch(`${ENDPOINT}/createTransaction?${searchParams.toString()}`);
+
+    if (!response.ok) {
+        console.log(response);
+        throw new Error(`Failed to create transaction: ${response.statusText}`);
+    }
 
 	const data = await response.json();
-
-	if (!('txn' in data)) {
-		throw new Error('Failed to create transaction: no txn found in response');
-	}
-
-	return loadTransaction({ txn: data.txn, ...params });
+	return loadTransaction({ txn: data.txn, ...params })
 }
