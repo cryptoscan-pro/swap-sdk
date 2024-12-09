@@ -28,12 +28,14 @@ export const swap = async ({ wallet, connection: paramsConnection, ...params }: 
 				wsEndpoint: process.env.WS_CONNECTION_URL!,
 			});
 			transaction.sign([wallet]);
-			console.log((transaction.message as any).instructions)
+			
 			const txid = await sendTransaction(transaction.serialize(), {
 				connection,
 				checkBlockHeight: false,
 				speed: 'fast',
 			});
+			// bad code here
+			console.log(txid)
 			return txid;
 		}
 		default: 
